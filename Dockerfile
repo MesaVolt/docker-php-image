@@ -1,7 +1,7 @@
 FROM debian:jessie
 
 # install base requirements
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -yqq \
      git zip unzip apt-utils apt-transport-https software-properties-common \
      zlib1g-dev libfreetype6-dev libpng12-dev libjpeg62-turbo-dev \
      libfontconfig curl wget build-essential ca-certificates ssl-cert lsb-release
