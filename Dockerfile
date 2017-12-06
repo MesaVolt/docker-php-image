@@ -27,7 +27,7 @@ RUN apt-get update
 RUN apt-get install --no-install-recommends -y \
     php7.1 php7.1-common php7.1-cli php7.1-opcache php7.1-readline \ 
     php7.1-bz2 php7.1-curl php7.1-gd php7.1-intl php7.1-json php7.1-mysql \ 
-    php7.1-xml php7.1-zip php-xdebug \ 
+    php7.1-xml php7.1-zip php-xdebug
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
