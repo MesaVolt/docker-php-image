@@ -34,12 +34,12 @@ RUN chmod +x /usr/local/bin/phpunit
 RUN apt-get install -y nodejs yarn
 
 # show installed packages info
-RUN node --version
-RUN yarn --version
-RUN php --version
-RUN php -m
 # redirect stderr to /dev/null because composer will complain about running it as root
-RUN composer --version 2> /dev/null
-RUN phpunit --version
+RUN echo "node: " && node --version && \
+    echo "yarn: " && yarn --version && \
+    echo "php: " && php --version && \
+    echo "php modules: " && php -m && \
+    echo "phpunit: " && phpunit --version && \
+    echo "composer: " && composer --version 2> /dev/null
 
 # CMD ["php", "-a"]
