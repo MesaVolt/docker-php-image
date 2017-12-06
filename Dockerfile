@@ -21,7 +21,7 @@ RUN curl -sSL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get update -qq && apt-get install --no-install-recommends -y \
     php7.1 php7.1-fpm php7.1-bz2 php7.1-cli php7.1-common php7.1-curl php7.1-gd \
     php7.1-intl php7.1-json php7.1-mbstring php7.1-mysql php7.1-opcache php7.1-readline \
-    php7.1-sqlite3 php7.1-xml php7.1-zip php-redis php-xdebug
+    php7.1-sqlite3 php7.1-xml php7.1-zip php-gearman php-redis php-xdebug
 
 RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.1/cli/php.ini && \
     echo "memory_limit = 512M" >> /etc/php/7.1/cli/php.ini && \
