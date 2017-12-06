@@ -23,6 +23,10 @@ RUN apt-get update -qq && apt-get install --no-install-recommends -y \
     php7.1-intl php7.1-json php7.1-mbstring php7.1-mysql php7.1-opcache php7.1-readline \
     php7.1-sqlite3 php7.1-xml php7.1-zip php-redis php-xdebug
 
+RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.1/cli/php.ini && \
+    echo "memory_limit = 512M" >> /etc/php/7.1/cli/php.ini && \
+    echo "error_reporting = E_ALL" >> /etc/php/7.1/cli/php.ini
+
 # install composer
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
