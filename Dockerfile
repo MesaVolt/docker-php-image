@@ -46,4 +46,6 @@ RUN echo "node: " && node --version && \
     echo "phpunit: " && phpunit --version && \
     echo "composer: " && composer --version 2> /dev/null
 
-# CMD ["php", "-a"]
+# add mesavolt user and switch to it
+RUN adduser --disabled-password --gecos "" mesavolt
+USER mesavolt
