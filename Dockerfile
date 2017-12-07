@@ -8,10 +8,19 @@ FROM debian:jessie
 ENV DEBIAN_FRONTEND noninteractive
 
 # install base requirements
-RUN apt-get update -qq && apt-get install apt-utils  apt-transport-https -yqq
-RUN apt-get install -yqq build-essential ca-certificates curl git libfontconfig \
+RUN apt-get -qq update && apt-get -yqq install apt-utils apt-transport-https
+RUN apt-get -yqq install build-essential ca-certificates curl git libfontconfig \
     libfreetype6-dev libjpeg62-turbo-dev libpng12-dev lsb-release \
     software-properties-common ssl-cert sudo unzip vim wget zip zlib1g-dev
+
+# add chrome/puppeteer dependencies
+# see https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
+RUN apt-get -yqq install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 \
+    libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 \
+    libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 \
+    libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
+    libxrender1 libxss1 libxtst6 fonts-liberation libappindicator1 libnss3 \
+    xdg-utils
 
 # add php7 repo
 RUN curl -sS https://packages.sury.org/php/apt.gpg | apt-key add -
@@ -19,17 +28,20 @@ RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt
 
 # add yarn repo
 RUN curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 
 # add node repo
-RUN curl -sSL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+RUN echo "deb https://deb.nodesource.com/node_8.x jessie main" > /etc/apt/sources.list.d/nodesource.list
+RUN echo "deb-src https://deb.nodesource.com/node_8.x jessie main" >> /etc/apt/sources.list.d/nodesource.list
 
 # install php7.1
-RUN apt-get update -qq && apt-get install --no-install-recommends -y \
+RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     php7.1 php7.1-fpm php7.1-bz2 php7.1-cli php7.1-common php7.1-curl php7.1-gd \
     php7.1-intl php7.1-json php7.1-mbstring php7.1-mysql php7.1-opcache php7.1-readline \
     php7.1-sqlite3 php7.1-xml php7.1-zip php-gearman php-redis php-xdebug
 
+# set sensible php options
 RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.1/cli/php.ini && \
     echo "memory_limit = 512M" >> /etc/php/7.1/cli/php.ini && \
     echo "error_reporting = E_ALL" >> /etc/php/7.1/cli/php.ini
@@ -42,7 +54,7 @@ RUN curl -sSL --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.ph
 RUN chmod +x /usr/local/bin/phpunit
 
 # install node and yarn
-RUN apt-get install -y nodejs yarn
+RUN apt-get -yqq install nodejs yarn
 
 # show installed packages info
 # redirect stderr to /dev/null because composer will complain about running it as root
@@ -58,7 +70,8 @@ RUN adduser --disabled-password --gecos "" mesavolt
 
 # enable user mesavolt to run sudo with no password
 RUN echo "mesavolt   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/mesavolt && \
-    chmod 0440 /etc/sudoers.d/mesavolt
+    chmod 0440 /etc/sudoers.d/mesavolt && visudo -c
+RUN service sudo restart
 
 # reset DEBIAN_FRONTEND var
 ENV DEBIAN_FRONTEND teletype
