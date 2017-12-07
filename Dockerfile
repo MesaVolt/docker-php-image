@@ -48,5 +48,6 @@ RUN echo "node: " && node --version && \
 
 # add mesavolt user and switch to it
 RUN adduser --disabled-password --gecos "" mesavolt
-USER mesavolt
-WORKDIR /home/mesavolt
+
+# USER mesavolt
+# WORKDIR /home/mesavolt
