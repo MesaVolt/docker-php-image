@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # install base requirements
 RUN apt-get -qq update && apt-get -yqq install apt-utils apt-transport-https
 RUN apt-get -yqq install build-essential ca-certificates curl git libfontconfig \
-    libfreetype6-dev libjpeg62-turbo-dev libpng12-dev lsb-release \
+    libfreetype6-dev libjpeg62-turbo-dev libpng12-dev lsb-release poppler-utils \
     software-properties-common ssl-cert sudo unzip vim wget zip zlib1g-dev
 
 # add chrome/puppeteer dependencies
