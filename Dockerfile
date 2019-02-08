@@ -44,6 +44,7 @@ RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     php7.1-cli \
     php7.1-common \
     php7.1-curl \
+    php7.1-exif \
     php7.1-gd \
     php7.1-intl \
     php7.1-imap \
