@@ -51,7 +51,7 @@ RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.1/cli/php.ini && \
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # install phpunit
-RUN curl -sSL --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
+RUN curl -sSL --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-7.phar
 RUN chmod +x /usr/local/bin/phpunit
 
 # install node and yarn
