@@ -5,7 +5,7 @@ CONTAINER_NAME=mesavolt/php7.1
 
 case "$1" in
 	build )
-		docker build -t $CONTAINER_NAME .
+		docker build --no-cache -t $CONTAINER_NAME .
 		;;
 	run )
 		docker run -it $CONTAINER_NAME

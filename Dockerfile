@@ -37,7 +37,7 @@ RUN echo "deb-src https://deb.nodesource.com/node_8.x jessie main" >> /etc/apt/s
 
 # install php7.1
 RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
-    php7.1 php7.1-fpm php7.1-bz2 php7.1-cli php7.1-common php7.1-curl php7.1-gd \
+    libgd3 php7.1 php7.1-fpm php7.1-bz2 php7.1-cli php7.1-common php7.1-curl php7.1-gd \
     php7.1-intl php7.1-imap php7.1-json php7.1-mbstring php7.1-mysql php7.1-opcache \
     php7.1-readline php7.1-soap php7.1-sqlite3 php7.1-xml php7.1-zip \
     php-imagick php-gearman php-redis php-xdebug
