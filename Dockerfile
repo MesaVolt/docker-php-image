@@ -9,9 +9,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # install base requirements
 RUN apt-get -qq update && apt-get -yqq install apt-utils apt-transport-https
-RUN apt-get -yqq install acl build-essential ca-certificates curl git libicu-dev libfontconfig \
-    libfreetype6-dev libjpeg62-turbo-dev libpng-dev libpng12-dev lsb-release poppler-utils \
-    software-properties-common ssl-cert sudo unzip vim wfrench wget zip zlib1g-dev
+RUN apt-get -yqq install acl build-essential ca-certificates curl git libc-client-dev libicu-dev libfontconfig \
+    libfreetype6-dev libjpeg62-turbo-dev libkrb5-dev libmagickwand-dev libpng-dev libpng12-dev \
+    lsb-release poppler-utils software-properties-common ssl-cert sudo unzip vim wfrench wget zip zlib1g-dev
 
 # add chrome/puppeteer dependencies
 # see https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
