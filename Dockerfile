@@ -57,6 +57,7 @@ RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     php7.1-sqlite3 \
     php7.1-xml \
     php7.1-zip \
+    php7.1-gmp \
     php-imagick \
     php-gearman \
     php-redis \
