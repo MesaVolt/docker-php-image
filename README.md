@@ -4,7 +4,7 @@
 
 Based on `debian:jessie`, adds a non-root user (mesavolt) and the following packages :
 
-* php7.1 (from https://deb.sury.org) and some useful extensions (full list in [Dockerfile](./Dockerfile))
+* php7.4 (from https://deb.sury.org) and some useful extensions (full list in [Dockerfile](./Dockerfile))
 * composer
 * phpunit
 * node8 (LTS)
