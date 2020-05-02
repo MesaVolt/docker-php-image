@@ -40,6 +40,7 @@ RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     libgd3 \
     php7.4 \
     php7.4-fpm \
+    php7.4-bcmath \
     php7.4-bz2 \
     php7.4-cli \
     php7.4-common \
