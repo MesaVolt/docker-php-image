@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 # set debconf's default frontend mode to noninteractive
 # to prevent spamming the build logs with the same debconf error
@@ -9,18 +9,17 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # install base requirements
 RUN apt-get -qq update && apt-get -yqq install apt-utils apt-transport-https
-RUN apt-get -yqq install acl build-essential ca-certificates curl git libc-client-dev libicu-dev libfontconfig \
-    libfreetype6-dev libjpeg62-turbo-dev libkrb5-dev libmagickwand-dev libpng-dev libpng12-dev \
+RUN apt-get -yqq install acl build-essential ca-certificates curl gconf-service git libc-client-dev libicu-dev libfontconfig \
+    libfreetype6-dev libjpeg62-turbo-dev libkrb5-dev libmagickwand-dev libpng-dev libpng16-16 \
     lsb-release poppler-utils software-properties-common ssl-cert sudo unzip vim wfrench wget zip zlib1g-dev
 
 # add chrome/puppeteer dependencies
 # see https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
-RUN apt-get -yqq install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 \
-    libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 \
-    libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 \
+RUN apt-get -yqq install fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 \
+    libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 \
+    libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 \
     libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
-    libxrender1 libxss1 libxtst6 fonts-liberation libappindicator1 libnss3 \
-    xdg-utils
+    libxrender1 libxss1 libxtst6
 
 # add php7 repo
 RUN curl -sS https://packages.sury.org/php/apt.gpg | apt-key add -
