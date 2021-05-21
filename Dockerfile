@@ -46,22 +46,22 @@ RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     php7.4-curl \
     php7.4-exif \
     php7.4-gd \
+    php7.4-gearman \
     php7.4-intl \
+    php7.4-imagick \
     php7.4-imap \
     php7.4-json \
     php7.4-mbstring \
     php7.4-mysql \
     php7.4-opcache \
     php7.4-readline \
+    php7.4-redis \
     php7.4-soap \
     php7.4-sqlite3 \
     php7.4-xml \
     php7.4-zip \
     php7.4-gmp \
-    php-imagick \
-    php-gearman \
-    php-redis \
-    php-xdebug
+    php7.4-xdebug
 
 # set sensible php options
 RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.4/cli/php.ini && \
