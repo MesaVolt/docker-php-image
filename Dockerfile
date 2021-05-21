@@ -68,6 +68,9 @@ RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.4/cli/php.ini && \
     echo "memory_limit = 512M" >> /etc/php/7.4/cli/php.ini && \
     echo "error_reporting = E_ALL" >> /etc/php/7.4/cli/php.ini
 
+# disable Xdebug by default
+RUN phpdismod xdebug
+
 # install composer
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
