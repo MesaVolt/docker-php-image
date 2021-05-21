@@ -5,7 +5,7 @@ FROM debian:stretch
 # debconf: unable to initialize frontend: Dialog
 # debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 76, <> line 4.)
 # debconf: falling back to frontend: Readline
-ENV DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
 # install base requirements
 RUN apt-get -qq update && apt-get -yqq install apt-utils apt-transport-https
@@ -94,9 +94,6 @@ RUN adduser --disabled-password --gecos "" mesavolt
 RUN echo "mesavolt   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/mesavolt && \
     chmod 0440 /etc/sudoers.d/mesavolt && visudo -c
 RUN service sudo restart
-
-# reset DEBIAN_FRONTEND var
-ENV DEBIAN_FRONTEND teletype
 
 # switch to mesavolt user (some tools complain when ran as root)
 USER mesavolt
