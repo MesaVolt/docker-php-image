@@ -21,6 +21,8 @@ RUN apt-get -yqq install fonts-liberation libappindicator3-1 libasound2 libatk-b
     libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
     libxrender1 libxss1 libxtst6
 
+RUN apt-get install -yqq --upgrade openssl
+
 # add php7 repo
 RUN curl -sS https://packages.sury.org/php/apt.gpg | apt-key add -
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
