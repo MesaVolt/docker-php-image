@@ -33,8 +33,8 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.lis
 
 # add node repo
 RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb https://deb.nodesource.com/node_12.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list
-RUN echo "deb-src https://deb.nodesource.com/node_12.x $(lsb_release -sc) main" >> /etc/apt/sources.list.d/nodesource.list
+RUN echo "deb https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list
+RUN echo "deb-src https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" >> /etc/apt/sources.list.d/nodesource.list
 
 # install php7.4
 RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
