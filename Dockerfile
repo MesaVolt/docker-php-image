@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:bullseye
 
 # set debconf's default frontend mode to noninteractive
 # to prevent spamming the build logs with the same debconf error
@@ -8,7 +8,7 @@ FROM debian:stretch
 ARG DEBIAN_FRONTEND=noninteractive
 
 # install base requirements
-RUN apt-get -qq update && apt-get -yqq install apt-utils apt-transport-https
+RUN apt-get update -qq && apt-get -yqq install apt-transport-https
 RUN apt-get -yqq install acl build-essential ca-certificates curl gconf-service git libc-client-dev libicu-dev libfontconfig \
     libfreetype6-dev libjpeg62-turbo-dev libkrb5-dev libmagickwand-dev libpng-dev libpng16-16 \
     lsb-release poppler-utils software-properties-common ssl-cert sudo unzip vim wfrench wget zip zlib1g-dev
