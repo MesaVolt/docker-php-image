@@ -11,7 +11,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qq && apt-get -yqq install apt-transport-https
 RUN apt-get -yqq install acl build-essential ca-certificates curl gconf-service git libc-client-dev libicu-dev libfontconfig \
     libfreetype6-dev libjpeg62-turbo-dev libkrb5-dev libmagickwand-dev libpng-dev libpng16-16 \
-    lsb-release poppler-utils software-properties-common ssl-cert sudo unzip vim wfrench wget zip zlib1g-dev
+    lsb-release poppler-utils software-properties-common ssl-cert sudo unzip unixodbc unixodbc-dev vim wfrench wget zip zlib1g-dev
 
 # add chrome/puppeteer dependencies
 # see https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
@@ -21,11 +21,16 @@ RUN apt-get -yqq install fonts-liberation libappindicator3-1 libasound2 libatk-b
     libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
     libxrender1 libxss1 libxtst6
 
+# upgrade openssl
 RUN apt-get install -yqq --upgrade openssl
 
 # add php7 repo
-RUN curl -sS https://packages.sury.org/php/apt.gpg | apt-key add -
+RUN curl -sSL https://packages.sury.org/php/apt.gpg | apt-key add -
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+
+# add msodbcsql repo
+RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl -sSL https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 # add yarn repo
 RUN curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -39,6 +44,7 @@ RUN echo "deb-src https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" 
 # install php7.4
 RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     libgd3 \
+    php-pear \
     php7.4 \
     php7.4-fpm \
     php7.4-bcmath \
@@ -46,6 +52,7 @@ RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     php7.4-cli \
     php7.4-common \
     php7.4-curl \
+    php7.4-dev \
     php7.4-exif \
     php7.4-gd \
     php7.4-gearman \
@@ -69,6 +76,20 @@ RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
 RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.4/cli/php.ini && \
     echo "memory_limit = 512M" >> /etc/php/7.4/cli/php.ini && \
     echo "error_reporting = E_ALL" >> /etc/php/7.4/cli/php.ini
+
+# install msodbcsql17
+RUN ACCEPT_EULA=Y apt-get install -yqq msodbcsql17
+
+# build sqlsrv and pdo_sqlsrv
+RUN pecl install sqlsrv
+RUN pecl install pdo_sqlsrv
+
+# add config files for sqlsrv and pdo_sqlsrv
+RUN echo -e "; priority=20\nextension=sqlsrv.so" > /etc/php/7.4/mods-available/sqlsrv.ini
+RUN echo -e "; priority=30\nextension=pdo_sqlsrv.so" > /etc/php/7.4/mods-available/pdo_sqlsrv.ini
+
+# enable sqlsrv and pdo_sqlsrv
+RUN phpenmod sqlsrv pdo_sqlsrv
 
 # disable Xdebug by default
 RUN phpdismod xdebug
