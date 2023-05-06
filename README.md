@@ -2,7 +2,7 @@
 
 > A minimal modern php environment
 
-Based on `debian:stretch`, adds a non-root user (mesavolt) and the following packages :
+Based on `debian:bullseye`, adds a non-root user (mesavolt) and the following packages :
 
 * PHP 8.2 (from https://deb.sury.org) and some useful extensions (full list in [Dockerfile](./Dockerfile))
 * composer
