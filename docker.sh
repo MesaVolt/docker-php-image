@@ -24,7 +24,8 @@ case "$1" in
 		echo "Usage: ./docker.sh [build|run|push]"
 		echo "The container name is infered from the branch name:"
 		echo " - master => mesavolt/php"
-        echo " - php7.1 => mesavolt/php7.1"
-		echo " - php7.4 => mesaovlt/php7.4"
+		echo " - php7.1 => mesavolt/php7.1"
+		echo " - php7.4 => mesavolt/php7.4"
+		echo " - php8.2 => mesavolt/php8.2"
 		;;
 esac

@@ -4,7 +4,7 @@
 
 Based on `debian:stretch`, adds a non-root user (mesavolt) and the following packages :
 
-* PHP 7.4 (from https://deb.sury.org) and some useful extensions (full list in [Dockerfile](./Dockerfile))
+* PHP 8.2 (from https://deb.sury.org) and some useful extensions (full list in [Dockerfile](./Dockerfile))
 * composer
 * phpunit
 * Node 16 (LTS)
