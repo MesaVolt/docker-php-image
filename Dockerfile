@@ -41,40 +41,40 @@ RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add
 RUN echo "deb https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list
 RUN echo "deb-src https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" >> /etc/apt/sources.list.d/nodesource.list
 
-# install php8.2
+# install php8.4
 RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     libgd3 \
     php-pear \
-    php8.2 \
-    php8.2-fpm \
-    php8.2-bcmath \
-    php8.2-bz2 \
-    php8.2-cli \
-    php8.2-common \
-    php8.2-curl \
-    php8.2-dev \
-    php8.2-exif \
-    php8.2-gd \
-    php8.2-gearman \
-    php8.2-intl \
-    php8.2-imagick \
-    php8.2-imap \
-    php8.2-mbstring \
-    php8.2-mysql \
-    php8.2-opcache \
-    php8.2-readline \
-    php8.2-redis \
-    php8.2-soap \
-    php8.2-sqlite3 \
-    php8.2-xml \
-    php8.2-zip \
-    php8.2-gmp \
-    php8.2-xdebug
+    php8.4 \
+    php8.4-fpm \
+    php8.4-bcmath \
+    php8.4-bz2 \
+    php8.4-cli \
+    php8.4-common \
+    php8.4-curl \
+    php8.4-dev \
+    php8.4-exif \
+    php8.4-gd \
+    php8.4-gearman \
+    php8.4-intl \
+    php8.4-imagick \
+    php8.4-imap \
+    php8.4-mbstring \
+    php8.4-mysql \
+    php8.4-opcache \
+    php8.4-readline \
+    php8.4-redis \
+    php8.4-soap \
+    php8.4-sqlite3 \
+    php8.4-xml \
+    php8.4-zip \
+    php8.4-gmp \
+    php8.4-xdebug
 
 # set sensible php options
-RUN echo "date.timezone = Europe/Paris" >> /etc/php/8.2/cli/php.ini && \
-    echo "memory_limit = 512M" >> /etc/php/8.2/cli/php.ini && \
-    echo "error_reporting = E_ALL" >> /etc/php/8.2/cli/php.ini
+RUN echo "date.timezone = Europe/Paris" >> /etc/php/8.4/cli/php.ini && \
+    echo "memory_limit = 512M" >> /etc/php/8.4/cli/php.ini && \
+    echo "error_reporting = E_ALL" >> /etc/php/8.4/cli/php.ini
 
 # install msodbcsql17
 RUN ACCEPT_EULA=Y apt-get install -yqq msodbcsql17
@@ -84,8 +84,8 @@ RUN pecl install sqlsrv
 RUN pecl install pdo_sqlsrv
 
 # add config files for sqlsrv and pdo_sqlsrv
-RUN echo -e "; priority=20\nextension=sqlsrv.so" > /etc/php/8.2/mods-available/sqlsrv.ini
-RUN echo -e "; priority=30\nextension=pdo_sqlsrv.so" > /etc/php/8.2/mods-available/pdo_sqlsrv.ini
+RUN echo -e "; priority=20\nextension=sqlsrv.so" > /etc/php/8.4/mods-available/sqlsrv.ini
+RUN echo -e "; priority=30\nextension=pdo_sqlsrv.so" > /etc/php/8.4/mods-available/pdo_sqlsrv.ini
 
 # enable sqlsrv and pdo_sqlsrv
 RUN phpenmod sqlsrv pdo_sqlsrv
