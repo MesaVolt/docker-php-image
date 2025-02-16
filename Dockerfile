@@ -74,7 +74,8 @@ RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
 # set sensible php options
 RUN echo "date.timezone = Europe/Paris" >> /etc/php/8.4/cli/php.ini && \
     echo "memory_limit = 512M" >> /etc/php/8.4/cli/php.ini && \
-    echo "error_reporting = E_ALL" >> /etc/php/8.4/cli/php.ini
+    echo "error_reporting = E_ALL" >> /etc/php/8.4/cli/php.ini && \
+    echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /etc/php/8.4/cli/php.ini
 
 # install msodbcsql17
 RUN ACCEPT_EULA=Y apt-get install -yqq msodbcsql17
