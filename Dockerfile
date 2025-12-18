@@ -13,6 +13,9 @@ RUN apt-get -yqq install acl build-essential ca-certificates curl gconf-service 
     libfreetype6-dev libjpeg62-turbo-dev libkrb5-dev libmagickwand-dev libpng-dev libpng16-16 \
     lsb-release poppler-utils software-properties-common ssl-cert sudo unzip unixodbc unixodbc-dev vim wfrench wget zip zlib1g-dev
 
+# install MySQL client
+RUN apt-get -yqq install --no-install-recommends default-mysql-client
+
 # add chrome/puppeteer dependencies
 # see https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
 RUN apt-get -yqq install fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 \
@@ -110,6 +113,7 @@ RUN echo "node: " && node --version && \
     echo "yarn: " && yarn --version && \
     echo "php: " && php --version && \
     echo "php modules: " && php -m && \
+    echo "mysql client: " && mysql --version && \
     echo "phpunit: " && phpunit --version && \
     echo "composer: " && composer --version 2> /dev/null
 
