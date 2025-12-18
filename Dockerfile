@@ -81,8 +81,8 @@ RUN echo "date.timezone = Europe/Paris" >> /etc/php/7.4/cli/php.ini && \
 RUN ACCEPT_EULA=Y apt-get install -yqq msodbcsql17
 
 # build sqlsrv and pdo_sqlsrv
-RUN pecl install sqlsrv
-RUN pecl install pdo_sqlsrv
+RUN pecl install sqlsrv-5.10.1
+RUN pecl install pdo_sqlsrv-5.10.1
 
 # add config files for sqlsrv and pdo_sqlsrv
 RUN echo -e "; priority=20\nextension=sqlsrv.so" > /etc/php/7.4/mods-available/sqlsrv.ini
