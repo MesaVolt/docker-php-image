@@ -7,7 +7,7 @@ Based on `debian:bookworm`, adds a non-root user (mesavolt) and the following pa
 * PHP 8.2 (from https://deb.sury.org) and some useful extensions (full list in [Dockerfile](./Dockerfile))
 * composer
 * phpunit
-* Node 16 (LTS)
+* Node 26 (LTS)
 * yarn
 * sudo
 * vim

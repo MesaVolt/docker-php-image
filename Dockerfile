@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # install base requirements
 RUN apt-get update -qq && apt-get -yqq install apt-transport-https
-RUN apt-get -yqq install acl build-essential ca-certificates curl gconf-service git libc-client-dev libicu-dev libfontconfig \
+RUN apt-get -yqq install acl build-essential ca-certificates curl gconf-service git gnupg libc-client-dev libicu-dev libfontconfig \
     libfreetype6-dev libjpeg62-turbo-dev libkrb5-dev libmagickwand-dev libpng-dev libpng16-16 \
     lsb-release poppler-utils software-properties-common ssl-cert sudo unzip unixodbc unixodbc-dev vim wfrench wget zip zlib1g-dev
 
@@ -20,6 +20,9 @@ RUN apt-get -yqq install fonts-liberation libappindicator3-1 libasound2 libatk-b
     libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 \
     libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 \
     libxrender1 libxss1 libxtst6
+
+# create APT keyring directory
+RUN mkdir -p /etc/apt/keyrings
 
 # upgrade openssl
 RUN apt-get install -yqq --upgrade openssl
@@ -37,9 +40,8 @@ RUN curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 
 # add node repo
-RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" > /etc/apt/sources.list.d/nodesource.list
-RUN echo "deb-src https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" >> /etc/apt/sources.list.d/nodesource.list
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN printf "Types: deb\nURIs: https://deb.nodesource.com/node_26.x/\nSuites: nodistro\nComponents: main\nSigned-By: /etc/apt/keyrings/nodesource.gpg" > /etc/apt/sources.list.d/nodesource.sources
 
 # install php8.4
 RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
