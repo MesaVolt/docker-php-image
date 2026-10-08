@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 # set debconf's default frontend mode to noninteractive
 # to prevent spamming the build logs with the same debconf error
