@@ -32,8 +32,8 @@ RUN curl -sSL https://packages.sury.org/php/apt.gpg | apt-key add -
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
 # add msodbcsql repo
-RUN curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl -sSL https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+RUN curl -sSL "https://packages.microsoft.com/config/debian/$(lsb_release -sr)/prod.list" > /etc/apt/sources.list.d/mssql-release.list
 
 # add yarn repo
 RUN curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -83,19 +83,12 @@ RUN echo "date.timezone = Europe/Paris" >> /etc/php/8.4/cli/php.ini && \
     echo "error_reporting = E_ALL" >> /etc/php/8.4/cli/php.ini && \
     echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /etc/php/8.4/cli/php.ini
 
-# install msodbcsql17
-RUN ACCEPT_EULA=Y apt-get install -yqq msodbcsql17
+# install msodbcsql18
+RUN ACCEPT_EULA=Y apt-get install -yqq msodbcsql18
 
-# build sqlsrv and pdo_sqlsrv
-RUN pecl install sqlsrv
-RUN pecl install pdo_sqlsrv
-
-# add config files for sqlsrv and pdo_sqlsrv
-RUN echo -e "; priority=20\nextension=sqlsrv.so" > /etc/php/8.4/mods-available/sqlsrv.ini
-RUN echo -e "; priority=30\nextension=pdo_sqlsrv.so" > /etc/php/8.4/mods-available/pdo_sqlsrv.ini
-
-# enable sqlsrv and pdo_sqlsrv
-RUN phpenmod sqlsrv pdo_sqlsrv
+# install sqlsrv and pdo_sqlsrv with pie
+RUN pie install microsoft/sqlsrv
+RUN pie install microsoft/pdo_sqlsrv
 
 # disable Xdebug by default
 RUN phpdismod xdebug
