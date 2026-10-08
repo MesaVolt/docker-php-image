@@ -92,7 +92,7 @@ RUN phpdismod xdebug
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # install phpunit
-RUN curl -sSL --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-10.phar
+RUN curl -sSL --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-13.phar
 RUN chmod +x /usr/local/bin/phpunit
 
 # install node and yarn
