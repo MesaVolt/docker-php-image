@@ -43,6 +43,10 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.lis
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 RUN printf "Types: deb\nURIs: https://deb.nodesource.com/node_26.x/\nSuites: nodistro\nComponents: main\nSigned-By: /etc/apt/keyrings/nodesource.gpg" > /etc/apt/sources.list.d/nodesource.sources
 
+# install pie
+RUN curl -sSL --output /usr/local/bin/pie https://github.com/php/pie/releases/latest/download/pie.phar
+RUN sudo chmod +x /usr/local/bin/pie
+
 # install php8.4
 RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     libgd3 \
@@ -110,6 +114,7 @@ RUN apt-get -yqq install nodejs yarn
 # redirect stderr to /dev/null because composer will complain about running it as root
 RUN echo "node: " && node --version && \
     echo "yarn: " && yarn --version && \
+    echo "pie: " && pie --version && \
     echo "php: " && php --version && \
     echo "php modules: " && php -m && \
     echo "phpunit: " && phpunit --version && \
