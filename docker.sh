@@ -11,7 +11,7 @@ CONTAINER_NAME="mesavolt/$BRANCH"
 
 case "$1" in
 	build )
-		docker build --no-cache -t $CONTAINER_NAME .
+		BUILDKIT_PROGRESS=plain docker build --no-cache -t $CONTAINER_NAME .
 		;;
 	run )
 		docker run -it $CONTAINER_NAME
