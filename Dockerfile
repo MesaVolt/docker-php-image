@@ -27,7 +27,7 @@ RUN mkdir -p /etc/apt/keyrings
 # upgrade openssl
 RUN apt-get install -yqq --upgrade openssl
 
-# add php7 repo
+# add php prepo
 RUN curl -sSL https://packages.sury.org/php/apt.gpg | apt-key add -
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
@@ -47,41 +47,36 @@ RUN printf "Types: deb\nURIs: https://deb.nodesource.com/node_26.x/\nSuites: nod
 RUN curl -sSL --output /usr/local/bin/pie https://github.com/php/pie/releases/latest/download/pie.phar
 RUN sudo chmod +x /usr/local/bin/pie
 
-# install php8.4
+# install php8.5
 RUN apt-get -qq update && apt-get -yqq install --no-install-recommends \
     libgd3 \
-    php-pear \
-    php8.4 \
-    php8.4-fpm \
-    php8.4-bcmath \
-    php8.4-bz2 \
-    php8.4-cli \
-    php8.4-common \
-    php8.4-curl \
-    php8.4-dev \
-    php8.4-exif \
-    php8.4-gd \
-    php8.4-gearman \
-    php8.4-intl \
-    php8.4-imagick \
-    php8.4-imap \
-    php8.4-mbstring \
-    php8.4-mysql \
-    php8.4-opcache \
-    php8.4-readline \
-    php8.4-redis \
-    php8.4-soap \
-    php8.4-sqlite3 \
-    php8.4-xml \
-    php8.4-zip \
-    php8.4-gmp \
-    php8.4-xdebug
+    php8.5 \
+    php8.5-fpm \
+    php8.5-bcmath \
+    php8.5-bz2 \
+    php8.5-cli \
+    php8.5-common \
+    php8.5-curl \
+    php8.5-dev \
+    php8.5-gd \
+    php8.5-gearman \
+    php8.5-intl \
+    php8.5-imagick \
+    php8.5-imap \
+    php8.5-mbstring \
+    php8.5-mysql \
+    php8.5-redis \
+    php8.5-soap \
+    php8.5-sqlite3 \
+    php8.5-xml \
+    php8.5-zip \
+    php8.5-gmp \
+    php8.5-xdebug
 
 # set sensible php options
-RUN echo "date.timezone = Europe/Paris" >> /etc/php/8.4/cli/php.ini && \
-    echo "memory_limit = 512M" >> /etc/php/8.4/cli/php.ini && \
-    echo "error_reporting = E_ALL" >> /etc/php/8.4/cli/php.ini && \
-    echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /etc/php/8.4/cli/php.ini
+RUN echo "date.timezone = Europe/Paris" >> /etc/php/8.5/cli/php.ini && \
+    echo "memory_limit = 512M" >> /etc/php/8.5/cli/php.ini && \
+    echo "error_reporting = E_ALL" >> /etc/php/8.5/cli/php.ini
 
 # install msodbcsql18
 RUN ACCEPT_EULA=Y apt-get install -yqq msodbcsql18
